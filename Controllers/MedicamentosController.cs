@@ -45,6 +45,11 @@ namespace MedicamentosAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<Medicamento>> PostMedicamento(Medicamento medicamento)
         {
+            // 🔥 Si no viene id_proveedor, dejarlo como null
+            if (medicamento.id_proveedor == 0)
+            {
+                medicamento.id_proveedor = null;
+            }
 
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -59,7 +64,6 @@ namespace MedicamentosAPI.Controllers
                 new { id = medicamento.Id, userUid = medicamento.UserUid },
                 medicamento);
         }
-
         [HttpPut("{id}")]
         public async Task<IActionResult> PutMedicamento(int id, Medicamento medicamento)
         {
@@ -118,6 +122,42 @@ namespace MedicamentosAPI.Controllers
             await _context.SaveChangesAsync();
 
             return Ok(new { message = "Stock actualizado", nuevoStock });
+        }
+        // GET: api/medicamentos/with-proveedor
+        [HttpGet("with-proveedor")]
+        public async Task<ActionResult<IEnumerable<object>>> GetMedicamentosConProveedor([FromQuery] string userUid)
+        {
+            if (string.IsNullOrEmpty(userUid))
+                return BadRequest(new { message = "UserUid es requerido" });
+
+            var medicamentos = await _context.Medicamentos
+                .Where(m => m.UserUid == userUid)
+                .Include(m => m.Proveedor)
+                .Select(m => new
+                {
+                    m.Id,
+                    m.Nombre,
+                    m.Descripcion,
+                    m.Laboratorio,
+                    m.Precio,
+                    m.Stock,
+                    m.Unidad,
+                    m.FechaVencimiento,
+                    m.RequiereReceta,
+                    m.UserUid,
+                    m.CreatedAt,
+                    m.UpdatedAt,
+                    m.id_proveedor,
+                    Proveedor = m.Proveedor != null ? new
+                    {
+                        m.Proveedor.id_proveedor,
+                        m.Proveedor.nombre,
+                        m.Proveedor.telefono
+                    } : null
+                })
+                .ToListAsync();
+
+            return Ok(medicamentos);
         }
 
     }

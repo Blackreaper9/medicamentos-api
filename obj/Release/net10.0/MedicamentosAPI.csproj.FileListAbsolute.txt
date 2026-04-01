@@ -159,3 +159,4 @@ C:\Users\magua\gestion-pacientes\backend-medicamentos\MedicamentosAPI\obj\Releas
 C:\Users\magua\gestion-pacientes\backend-medicamentos\MedicamentosAPI\obj\Release\net10.0\MedicamentosAPI.pdb
 C:\Users\magua\gestion-pacientes\backend-medicamentos\MedicamentosAPI\obj\Release\net10.0\MedicamentosAPI.genruntimeconfig.cache
 C:\Users\magua\gestion-pacientes\backend-medicamentos\MedicamentosAPI\obj\Release\net10.0\ref\MedicamentosAPI.dll
+C:\Users\magua\gestion-pacientes\backend-medicamentos\MedicamentosAPI\obj\Release\net10.0\MedicamentosAPI.sourcelink.json

@@ -43,5 +43,12 @@ namespace MedicamentosAPI.Models
         public DateTime CreatedAt { get; set; }
 
         public DateTime UpdatedAt { get; set; }
+
+        // 🔥 NUEVA CLAVE FORÁNEA
+        public int? id_proveedor { get; set; }
+
+        // 🔥 RELACIÓN
+        [ForeignKey("id_proveedor")]
+        public virtual Proveedor? Proveedor { get; set; }
     }
 }
