@@ -10,7 +10,7 @@ COPY . .
 RUN dotnet publish -c Release -o /app/publish
 
 # Imagen final
-FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS runtime
+FROM mcr.microsoft.com/dotnet/aspnet:10.0 AS runtime
 WORKDIR /app
 EXPOSE 8080
 ENV ASPNETCORE_URLS=http://+:8080
